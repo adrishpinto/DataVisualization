@@ -60,7 +60,7 @@ const MultilineChart = ({ relevance, likelihood }) => {
     },
     elements: {
       point: {
-        radius: 0, // Removes points on hover
+        radius: 0, 
       },
     },
     hover: {

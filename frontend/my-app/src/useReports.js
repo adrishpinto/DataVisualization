@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const useReports = () => {
   const [reports, setReports] = useState([]);
@@ -10,7 +11,7 @@ const useReports = () => {
 
   const fetchReports = async () => {
     try {
-      const res = await axios.get("http://localhost:5001/get");
+      const res = await axios.get(`${API_BASE_URL}/get`);
       setReports(res.data);
     } catch (error) {
       console.error("Error fetching reports:", error);
@@ -43,7 +44,6 @@ const useReports = () => {
       startYear.push(item.start_year);
     }
   });
-  
 
   return {
     reports,

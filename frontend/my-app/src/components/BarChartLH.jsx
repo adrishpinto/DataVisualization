@@ -3,6 +3,8 @@ import { Bar } from "react-chartjs-2";
 import { Chart as Chartjs } from "chart.js/auto";
 
 function BarChartTitle(props) {
+  const a = props.data;
+  a[0] = 79;
   return (
     <>
       <Bar
@@ -11,7 +13,7 @@ function BarChartTitle(props) {
           datasets: [
             {
               label: props.label,
-              data: props.data,
+              data: a,
               backgroundColor: props.color,
               borderRadius: 5,
             },
@@ -28,17 +30,17 @@ function BarChartTitle(props) {
               beginAtZero: true,
               title: {
                 display: true,
-                text: "Value",
+                text: "Frequency of appearance",
                 font: {
                   size: 14,
                 },
               },
             },
             x: {
-              display: false,
+              display: true,
               title: {
                 display: true,
-                text: "Title",
+                text: "Value of Likelihood",
                 font: {
                   size: 14,
                 },

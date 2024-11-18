@@ -1,78 +1,76 @@
 import React, { useState } from "react";
-import {
-  Card,
-  Typography,
-  List,
-  ListItem,
-  ListItemPrefix,
-} from "@material-tailwind/react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   PresentationChartBarIcon,
-  UserCircleIcon,
-  Cog6ToothIcon,
   LightBulbIcon,
-  PowerIcon,
   Bars3Icon,
 } from "@heroicons/react/24/solid";
 
-export default function DefaultSidebar(props) {
-  const [isExpanded, setIsExpanded] = useState(true);
-  const navChange = (value) => {
-    props.navChange(value);
-  };
-  const handleToggle = () => {
-    setIsExpanded(!isExpanded);
-  };
+const Sidebar = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const toggleSidebar = () => setIsExpanded(!isExpanded);
+
+  const isActive = (path) => location.pathname === path;
 
   return (
-    <Card
-      className={` min-h-screen rounded-none transition-width duration-500 sticky border border-slate-100 ${
-        isExpanded ? "w-64 p-4" : "w-16"
-      } relative`}
-    >
-      <div className="mb-2 p-4 flex justify-between items-center">
-        <Typography
-          variant="h5"
-          color="blue-gray"
-          className={`transition-opacity duration-300 ${
-            isExpanded ? "opacity-100" : "opacity-0"
-          }`}
+    <div>
+      <div
+        className={`h-screen bg-white-300 border-r border-slate-400 text-black flex flex-col ${
+          isExpanded ? "w-40" : "w-12"
+        } transition-all`}
+      >
+        <button
+          className="size-9 pl-2 pt-1 self-end mr-2"
+          onClick={toggleSidebar}
         >
-          Sidebar
-        </Typography>
-        <Bars3Icon
-          className={`h-6 w-6 ${isExpanded ? "" : "opacity-100 absolute"}`}
-          onClick={handleToggle}
-        />
+          <Bars3Icon />
+        </button>
+
+        <ul className="mt-4 space-y-2">
+          {/* Home Item */}
+          <div className="flex items-center">
+            <li
+              className={`ml-1 cursor-pointer p-2 w-fit transition-all hover:bg-slate-300 rounded flex items-center ${
+                isActive("/") ? "bg-slate-300" : ""
+              }`}
+              onClick={() => navigate("/")}
+            >
+              <PresentationChartBarIcon className="h-6 w-6" />
+              <span
+                className={`transition-opacity duration ${
+                  isExpanded ? "opacity-100 mr-10 ml-2" : "opacity-0"
+                }`}
+              >
+                {isExpanded && "Home"}
+              </span>
+            </li>
+          </div>
+
+          {/* About Item */}
+          <div className="flex items-center">
+            <li
+              className={`ml-1 cursor-pointer p-2 transition-all duration-500 hover:bg-slate-300 rounded flex items-center ${
+                isActive("/about") ? "bg-slate-300" : ""
+              } ${isExpanded ? "w-[135px]" : "w-fit"}`}
+              onClick={() => navigate("/about")}
+            >
+              <LightBulbIcon className="h-6 w-6" />
+              <span
+                className={`transition-opacity ${
+                  isExpanded ? "opacity-100 mr-10 ml-2" : "opacity-0"
+                }`}
+              >
+                {isExpanded && "About"}
+              </span>
+            </li>
+          </div>
+        </ul>
       </div>
-      <List>
-        <ListItem className="group">
-          <ListItemPrefix>
-            <PresentationChartBarIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          <span
-            onClick={() => navChange(0)}
-            className={`ml-1 transition-opacity duration-300 ${
-              isExpanded ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-            }`}
-          >
-            Dashboard
-          </span>
-        </ListItem>
-        <ListItem className="group">
-          <ListItemPrefix>
-            <LightBulbIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          <span
-            onClick={() => navChange(1)}
-            className={`ml-1 transition-opacity duration-300 ${
-              isExpanded ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-            }`}
-          >
-            Project Details
-          </span>
-        </ListItem>
-      </List>
-    </Card>
+    </div>
   );
-}
+};
+
+export default Sidebar;

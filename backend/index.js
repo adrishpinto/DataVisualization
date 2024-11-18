@@ -3,7 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import regRouter from "./dataRouter.js";
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 const app = express();
 mongoose.connect(
   "mongodb+srv://dvbase:1234@clusterdv.umsal77.mongodb.net/?retryWrites=true&w=majority&appName=ClusterDV",
