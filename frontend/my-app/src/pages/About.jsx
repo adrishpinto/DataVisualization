@@ -4,7 +4,7 @@ function About() {
   return (
     <div className="flex">
       <div className="w-full  mx-auto p-24">
-        <h1 className="text-3xl font-light">Project Details</h1>
+        <h1 className="text-5xl mb-20 font-light">Project Details</h1>
         <div>
           <div>
             <h1>Definations</h1>
